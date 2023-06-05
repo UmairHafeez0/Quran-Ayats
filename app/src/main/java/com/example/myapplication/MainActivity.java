@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewDebug;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -653,6 +654,36 @@ public class MainActivity extends AppCompatActivity {
                                 } else {
                                 }
                         }
+                });
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int m, long l) {
+                                String searchText = SurahList.get(m);
+
+                                int index = -1;
+                                int j=0;
+                                for (int i = 0; i < englishSurahNames.length; i++) {
+                                        j++;
+                                        if (englishSurahNames[i].equalsIgnoreCase(searchText)) {
+                                                index = i;
+                                                break;
+                                        }
+                                }
+
+                                if (index != -1) {
+                                        int psp1 = SSP[index];
+                                        int psp2 = SSP[index + 1];
+                                        searchText =  "سورہ کا نام " + urduSurahNames[index];
+                                        Intent intent = new Intent(MainActivity.this, SurahActivity.class);
+                                        intent.putExtra("psp1", psp1);
+                                        intent.putExtra("psp2", psp2-1);
+                                        intent.putExtra("name",searchText);
+                                        startActivity(intent);
+                                } else {
+                                }
+                        }
+
                 });
 
         }
